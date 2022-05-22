@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['file'];
+
+    // Making Dynamic Images Directory Link;
+    protected $images = '/images/';
+
+    // Crating Accessors for Images Link;
+    protected function getFileAttribute($photo){
+        return $this->images . $photo;
+    }
+
 }

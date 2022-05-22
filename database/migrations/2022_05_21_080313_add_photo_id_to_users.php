@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('photo_id');
+            $table->string('photo_id')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('photo_id');
+//            $table->dropColumn('photo_id');
         });
     }
 };
