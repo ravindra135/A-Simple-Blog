@@ -24,6 +24,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/admin', function (){
 
    return view('admin.index');
+
 })->name('admin');
 
-Route::resource('/admin/users', '\App\Http\Controllers\AdminUsersController');
+Route::group(['middleware'=>'admin'], function(){
+
+    Route::resource('/admin/users', '\App\Http\Controllers\AdminUsersController');
+
+    Route::resource('/admin/posts', '\App\Http\Controllers\AdminPostsController');
+
+});
+
