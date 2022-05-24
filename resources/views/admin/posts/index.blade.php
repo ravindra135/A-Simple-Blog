@@ -2,6 +2,28 @@
 
 @section('content')
 
+    <div class="container">
+    @if(\Illuminate\Support\Facades\Session::has('post_deleted'))
+
+        <div class="bg-danger">
+            <p><strong>{{ session('post_deleted') }}</strong></p>
+        </div>
+
+    @elseif(\Illuminate\Support\Facades\Session::has('post_created'))
+
+        <div class="bg-success">
+            <p><strong>{{ session('post_created') }}</strong></p>
+        </div>
+
+    @elseif(\Illuminate\Support\Facades\Session::has('post_created'))
+
+        <div class="bg-info">
+            <p><strong>{{ session('post_updated') }}</strong></p>
+        </div>
+
+    @endif
+    </div>
+
     <h1>Posts</h1>
          <table class="table">
             <thead>
@@ -20,7 +42,7 @@
                 @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
-                        <td></td>
+                        <td><img height="35px" class="rounded-circle" src="{{ $post->photo->file }}" alt="avatar"></td>
                         <td>{{ $post->title }}</td>
                         <td></td>
                         <td>{{ $post->user->name }}</td>

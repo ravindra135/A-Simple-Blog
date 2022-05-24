@@ -40,24 +40,26 @@
                 {!! Form::label('password', 'Password : ') !!}
                 {!! Form::password('password', ['class'=>'form-control']) !!}
             </div>
-            <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
 
-                    {!! Form::submit('Update User', ['class'=>'btn btn-primary']) !!}
+                        {!! Form::submit('Update User', ['class'=>'btn btn-primary']) !!}
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
 
-            </div>
+                </div>
 
-            <div class="form-group">
+                <div class="form-group">
 
-                    {!! Form::open(['method'=>'POST', 'action'=> ['App\Http\Controllers\AdminUsersController@destroy', $user->id]]) !!}
-                    @csrf
-                    @method('DELETE')
+                        {!! Form::open(['method'=>'POST', 'action'=> ['App\Http\Controllers\AdminUsersController@destroy', $user->id]]) !!}
+                        @csrf
+                        @method('DELETE')
 
-                    {!! Form::submit('Delete User', ['class'=>'btn btn-danger']) !!}
+                        {!! Form::submit('Delete User', ['class'=>'btn btn-danger']) !!}
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
 
+                </div>
             </div>
 
         </div>
