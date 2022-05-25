@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Edit Post</h1>
+    <h1 class="page-header">Edit Post</h1>
 
     <div class="row">
         {!! Form::model($post, ['method'=>'PATCH', 'action'=>['App\Http\Controllers\AdminPostsController@update', $post->id], 'files' => true]) !!}
@@ -37,7 +37,7 @@
         <div class="form-inline">
             <div class="form-group">
 
-                {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Update Post', ['class'=>'btn btn-primary']) !!}
                 {!! Form::close() !!}
 
             </div>

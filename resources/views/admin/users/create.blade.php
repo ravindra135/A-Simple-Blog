@@ -2,7 +2,7 @@
 
     @section('content')
 
-        <h1>Create Users</h1>
+        <h1 class="page-header">Create Users</h1>
 
         {!! Form::open(['method'=>'post', 'action'=>'App\Http\Controllers\AdminUsersController@store', 'files' => true]) !!}
         @csrf

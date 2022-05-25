@@ -26,7 +26,7 @@ class PostCreateRequest extends FormRequest
         return [
             'title'         => 'required',
             'body'          => 'required',
-            'photo_id'      => 'mimes:jpg,png,jpeg'
+            'photo_id'      => 'required|mimes:jpg,png,jpeg'
         ];
     }
 }

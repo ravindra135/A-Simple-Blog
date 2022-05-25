@@ -24,7 +24,7 @@
     @endif
     </div>
 
-    <h1>Posts</h1>
+    <h1 class="page-header">Posts</h1>
          <table class="table">
             <thead>
                 <tr>
@@ -43,7 +43,7 @@
                 @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
-                        <td><img height="35px" src="{{ $post->photo ? $post->photo->file : 'https://www.via.placeholder.com/1920x1024' }}" alt="avatar"></td>
+                        <td><img height="40px" src="{{ $post->photo ? $post->photo->file : 'https://placeimg.com/640/480/any' }}" alt="avatar"></td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
                         <td>{{ $post->user->name }}</td>

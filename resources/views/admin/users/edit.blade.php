@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Edit Users</h1>
+    <h1 class="page-header">Edit Users</h1>
 
     <div class="row">
         <div class="col-xs-6 col-lg-4">

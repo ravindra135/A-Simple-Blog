@@ -22,7 +22,7 @@
 
     @endif
 
-    <h1>Users</h1>
+    <h1 class="page-header">Users</h1>
 
     <table class="table">
         <thead>
@@ -42,7 +42,7 @@
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>
-                    <img height="35px" class="rounded-circle" src="{{ $user->photo->file }}" alt="avatar">&nbsp;&nbsp;{{ $user->name }}
+                    <img height="35px" class="rounded-circle" src="{{ $user->photo->file }}" alt="{{ $user->photo->alt ? : 'avatar' }}">&nbsp;&nbsp;{{ $user->name }}
                 </td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role->name }}</td>

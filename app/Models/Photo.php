@@ -9,7 +9,7 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['file'];
+    protected $fillable = ['file','alt'];
 
     // Making Dynamic Images Directory Link;
     protected $images = '/images/';
@@ -17,6 +17,11 @@ class Photo extends Model
     // Crating Accessors for Images Link;
     protected function getFileAttribute($photo){
         return $this->images . $photo;
+    }
+
+    public function ext($photo) {
+        $type = substr($photo, strpos($photo, ".") + 1);
+        return $type;
     }
 
 }
