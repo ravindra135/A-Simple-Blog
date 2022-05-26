@@ -2,7 +2,12 @@
 
 @section('content')
 
-    <h1 class="page-header">Edit Post</h1>
+    <h1 class="page-header">
+        <span>
+            <a style="text-decoration: none;" href="{{ route('posts.index') }}">
+                <i style="color: hotpink" class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </span>Edit Post</h1>
 
     <div class="row">
         {!! Form::model($post, ['method'=>'PATCH', 'action'=>['App\Http\Controllers\AdminPostsController@update', $post->id], 'files' => true]) !!}

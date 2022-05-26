@@ -2,12 +2,17 @@
 
 @section('content')
 
-    <h1 class="page-header">Edit Users</h1>
+    <h1 class="page-header">
+        <span>
+            <a style="text-decoration: none;" href="{{ route('users.index') }}">
+                <i style="color: hotpink" class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </span>Edit User</h1>
 
     <div class="row">
         <div class="col-xs-6 col-lg-4">
 
-            <img height="400" width="400" src="{{ $user->photo->file }}" alt="" class="img-rounded">
+            <img height="400" width="400" src="{{ $user->photo ? $user->photo->file : null }}" alt="avatar" class="img-rounded">
 
         </div>
 
@@ -26,7 +31,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('photo_id', 'Profile Picture : ') !!}
-                {!! Form::file('photo_id', ['class'=>'form-control']) !!}
+                {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('role_id', 'Role : ') !!}

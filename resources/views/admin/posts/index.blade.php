@@ -50,8 +50,16 @@
                         <td>{{ $post->created_at->diffForHumans() }}</td>
                         <td>{{ $post->updated_at->diffForHumans() }}</td>
                         <td>
-                            <a href="{{ route('posts.edit', $post->id) }}">
-                                <button class="btn btn-primary">Edit</button>
+                            <a style="text-decoration: none;" href="{{ route('posts.edit', $post->id) }}">
+                                <i class="fa fa-pencil fa-lg" style="color:red" aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <a style="text-decoration: none;" href="{{ route('post', $post->id) }}">
+                                <i class="fa fa-eye fa-lg" style="color:blue" aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <a style="text-decoration: none;" href="{{ route('comments.show', $post->id) }}">
+                                <i class="fa fa-comment fa-lg" style="color:darkslategrey" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>

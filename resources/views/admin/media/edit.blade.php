@@ -2,11 +2,12 @@
 
 @section('content')
 
-    <div style="">
-        <div>
-            <h1>Edit Media</h1>
-        </div>
-    </div>
+    <h1 class="page-header">
+        <span>
+            <a style="text-decoration: none;" href="{{ route('media.index') }}">
+                <i style="color: hotpink" class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </span>Edit Media</h1>
 
 
     <div class="row">

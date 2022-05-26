@@ -3,10 +3,10 @@
 @section('content')
 
 
-    <h1 style="display:inline-block;margin-right:10px;" class="page-header">Media</h1>
+    <h1 class="page-header">Media</h1>
 
     <a href="{{ route('media.create')}}">
-        <button style="display:inline-block; float: right" class="btn btn-info" >
+        <button style="float: right" class="btn btn-info" >
             <i class="fa fa-plus" aria-hidden="true"></i> Upload
         </button>
     </a>

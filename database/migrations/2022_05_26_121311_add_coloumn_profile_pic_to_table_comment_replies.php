@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->string('photo_id')->nullable()->after('is_active');;
+        Schema::table('comment_replies', function (Blueprint $table) {
+            $table->string('profile_pic')->nullable()->after('is_active');
         });
     }
 
@@ -26,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('comment_replies', function (Blueprint $table) {
             //
-//            $table->dropColumn('photo_id');
         });
     }
 };

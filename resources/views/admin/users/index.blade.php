@@ -42,7 +42,7 @@
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>
-                    <img height="35px" class="rounded-circle" src="{{ $user->photo->file }}" alt="{{ $user->photo->alt ? : 'avatar' }}">&nbsp;&nbsp;{{ $user->name }}
+                    <img height="35px" class="rounded-circle" src="{{ $user->photo ? $user->photo->file : '/images/def_avatar.png' }}" alt="{{ $user->photo ? $user->photo->alt : 'avatar' }}">&nbsp;&nbsp;{{ $user->name }}
                 </td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role->name }}</td>
@@ -51,8 +51,8 @@
                 </td>
                 <td>{{ $user->created_at->diffForHumans() }}</td>
                 <td>
-                    <a href="{{ route('users.edit', $user->id) }}">
-                        <button class="btn btn-primary">Edit</button>
+                    <a style="text-decoration: none;" href="{{ route('users.edit', $user->id) }}">
+                        <i class="fa fa-pencil fa-lg" style="color:red" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
