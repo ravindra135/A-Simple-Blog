@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -65,4 +66,16 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany('App\Models\Post');
     }
+
+    public function defaultAvatar() {
+        return "/images/def_avatar.png";
+    }
+
+    /**
+    This is For Gravatar
+        public function getGravatarAttribute() {
+            $hash = md5(strtolower(trim($this->attributes['email']))) . '?d=mm';
+            return "http://www.gravatar.com/avatar/$hash";
+        }
+     **/
 }

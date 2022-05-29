@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-xs-6 col-lg-4">
 
-            <img height="400" width="400" src="{{ $user->photo ? $user->photo->file : null }}" alt="avatar" class="img-rounded">
+            <img height="320" width="320" src="{{ $user->photo ? $user->photo->file : $user->defaultAvatar() }}" alt="avatar" class="img-rounded">
 
         </div>
 

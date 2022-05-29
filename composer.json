@@ -6,12 +6,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
-        "laravelcollective/html": "^6.3"
+        "laravelcollective/html": "^6.3",
+        "mckenziearts/laravel-notify": "^2.3",
+        "php-flasher/flasher": "^1.1",
+        "php-flasher/flasher-laravel": "^1.1",
+        "unisharp/laravel-filemanager": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

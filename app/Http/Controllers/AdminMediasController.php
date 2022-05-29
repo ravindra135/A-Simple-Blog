@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photo;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class AdminMediasController extends Controller
@@ -55,7 +56,10 @@ class AdminMediasController extends Controller
      */
     public function show($id)
     {
-        //
+        $photo = Photo::findOrFail($id);
+
+        return $photo->post('photo_id')->id;
+//        return view('admin.media.show');
     }
 
     /**
@@ -103,5 +107,26 @@ class AdminMediasController extends Controller
         $photo->delete();
 
         return redirect(route('media.index'));
+    }
+
+    public function massDelete(Request $request) {
+
+        if(isset($request->delete_single)) {
+
+            $this->destroy($request->photo);
+            return redirect(route('media.index'));
+
+        }
+
+
+        $photos = Photo::findOrFail ($request->checkBoxArray);
+
+        foreach ($photos as $photo) {
+            unlink(public_path(). $photo->file);
+            $photo->delete();
+        }
+
+        return back();
+
     }
 }

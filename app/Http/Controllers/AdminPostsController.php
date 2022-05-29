@@ -7,9 +7,16 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Photo;
 use App\Models\Post;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Flasher\Prime\Flasher;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Expr\New_;
 
 class AdminPostsController extends Controller
 {
@@ -44,7 +51,7 @@ class AdminPostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostCreateRequest $request)
+    public function store(PostCreateRequest $request, FlasherInterface $flasher)
     {
 //        return $request->all();
 
@@ -71,6 +78,12 @@ class AdminPostsController extends Controller
         $user->posts()->create($input);
 
         Session::flash('post_created', 'Post has been Created');
+
+        if(Session::has('post_created')) {
+            $flasher->addSuccess('Post Has Been Created;');
+        } else {
+            $flasher->addError('Oops!! Something Bad Happened;');
+        }
 
         return redirect(route('posts.index'));
 
@@ -110,7 +123,7 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, FlasherInterface $flasher)
     {
         $post = Post::findOrFail($id);
         $input = $request->all();
@@ -136,6 +149,12 @@ class AdminPostsController extends Controller
 
         Session::flash('post_updated', 'Post has been Updated');
 
+        if(Session::has('post_updated')) {
+            $flasher->addInfo('Post Has Been Updated;');
+        } else {
+            $flasher->addError('Oops!! Something Bad Happened;');
+        }
+
         return redirect(route('posts.index'));
     }
 
@@ -145,22 +164,56 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, FlasherInterface $flasher)
     {
         $post = Post::findOrFail($id);
+
+        if($post->photo_id == null){
+
+            $post->delete();
+
+        } else {
+
         unlink(public_path(). $post->photo->file);
         $post->photo->delete() && $post->delete();
 
+        }
+
         Session::flash('post_deleted', 'Post has Been Deleted');
+
+        if(Session::has('post_deleted')) {
+            $flasher->addWarning('Post Has Been Deleted;');
+        } else {
+            $flasher->addError('Oops!! Something Bad Happened;');
+        }
 
         return redirect(route('posts.index'));
     }
 
     public function post($id) {
 
-        $post = Post::findOrFail($id);
-        $comments = $post->comments()->wherePostId($id)->get();
+        $post = Post::findBySlugOrFail($id);
+        $comments = $post->comments()->whereIsActive(1)->get();
+        $categories = Category::all();
 
-        return view('post', compact('post', 'comments'));
+        // This will increment 'views' in Database;
+//        $post->postViews();
+
+        // This is For Accurate Views Count; Using Session
+        $postKey = 'post_' . $post->id;
+
+        if(!Session::has($postKey)) {
+            $post->postViews();
+            Session::put($postKey, 1);
+        }
+
+        return view('post', compact('post', 'comments', 'categories'));
     }
+
+    public function getSlug() {
+
+        $slug = SlugService::createSlug(Post::class, 'slug', \request('title'));
+        return response()->json(['slug'=>$slug]);
+    }
+
 }

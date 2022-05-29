@@ -23,5 +23,4 @@ class Photo extends Model
         $type = substr($photo, strpos($photo, ".") + 1);
         return $type;
     }
-
 }

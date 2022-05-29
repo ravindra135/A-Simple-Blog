@@ -1,22 +1,21 @@
 @extends('layouts.admin')
 
 @section('content')
-
     @if(\Illuminate\Support\Facades\Session::has('user_deleted'))
 
-        <div class="bg-danger">
+        <div class="alert alert-danger">
             <p><strong>{{ session('user_deleted') }}</strong></p>
         </div>
 
         @elseif(\Illuminate\Support\Facades\Session::has('user_created'))
 
-            <div class="bg-success">
+            <div class="alert alert-success">
                 <p><strong>{{ session('user_created') }}</strong></p>
             </div>
 
         @elseif(\Illuminate\Support\Facades\Session::has('user_created'))
 
-        <div class="bg-info">
+        <div class="alert alert-info">
             <p><strong>{{ session('user_updated') }}</strong></p>
         </div>
 
@@ -24,6 +23,15 @@
 
     <h1 class="page-header">Users</h1>
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            All Users
+            <a style="text-decoration: none" href="{{ route('posts.create') }}">
+                <button  class="btn btn-info btn-xs pull-right" >
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create
+                </button>
+            </a>
+        </div>
     <table class="table">
         <thead>
             <tr>
@@ -40,12 +48,16 @@
         <tbody>
             @foreach($users as $user)
             <tr>
+
                 <td>{{ $user->id }}</td>
                 <td>
-                    <img height="35px" class="rounded-circle" src="{{ $user->photo ? $user->photo->file : '/images/def_avatar.png' }}" alt="{{ $user->photo ? $user->photo->alt : 'avatar' }}">&nbsp;&nbsp;{{ $user->name }}
+                    <img height="40" class="img-circle" width="40"
+                         src="{{ $user->photo ? $user->photo->file : $user->defaultAvatar() }}"
+                         alt="{{ $user->photo ? $user->photo->alt : 'avatar' }}">&nbsp;&nbsp;
+                    <span><strong>{{ $user->name }}</strong></span>
                 </td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->role->name }}</td>
+                <td>{{ $user->role ? $user->role->name : 'Guest' }}</td>
                 <td>
                     {{ $user->is_active == 1 ? 'Active' : 'Inactive' }}
                 </td>
@@ -60,5 +72,12 @@
         </tbody>
         @endif
     </table>
+    </div>
 
 @endsection
+
+@section('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/@flasher/flasher/dist/flasher.min.js"></script>
+
+@stop

@@ -7,11 +7,13 @@ use App\Http\Requests\UserEditRequest;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +44,7 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateUserRequest $request, FlasherInterface $flasher)
     {
 //        User::create($request->all());
 //        return back();
@@ -67,9 +69,9 @@ class AdminUsersController extends Controller
         $input['password'] = bcrypt($request->password);
 
         User::create($input);
-
         Session::flash('user_created', '' . $input['name'] . ' has Been Created');
 
+        $flasher->addSuccess('User Created - ' . $input['name'] . '.' );
         return redirect(route('users.index'));
     }
 
@@ -106,7 +108,7 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserEditRequest $request, $id)
+    public function update(UserEditRequest $request, $id, FlasherInterface $flasher)
     {
         $user = User::findOrFail($id);
 
@@ -134,7 +136,13 @@ class AdminUsersController extends Controller
 
         $user->update($input);
 
-        Session::flash('user_created', 'Profile of ' . $user->name . ' has Been Updated');
+        Session::flash('user_updated', 'Profile of ' . $user->name . ' has Been Updated');
+
+        if(Session::has('user_updated')) {
+            $flasher->addInfo('User Updated Successfully');
+        } else {
+            $flasher->addError('Oops!! Something Bad Happened');
+        }
 
         return redirect(route('users.index'));
 
@@ -147,7 +155,7 @@ class AdminUsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+    public function destroy($id, FlasherInterface $flasher)
     {
         $user = User::findOrFail($id);
         unlink(public_path() . $user->photo->file);
@@ -156,6 +164,11 @@ class AdminUsersController extends Controller
 
         Session::flash('user_deleted', '' . $user->name . ' has Been Deleted');
 
+        if(Session::has('user_deleted')) {
+            $flasher->addWarning('User Removed Successfully');
+        } else {
+            $flasher->addError('Oops!! Something Bad Happened');
+        }
         return redirect(route('users.index'));
     }
 }

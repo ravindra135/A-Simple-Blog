@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('includes.tinyeditor')
+
     <h1 class="page-header">Create Post</h1>
 
     <div class="row">
@@ -10,7 +12,12 @@
 
         <div class="form-group">
             {!! Form::label('title', 'Title:') !!}
-            {!! Form::text('title', null, ['class'=>'form-control']) !!}
+            {!! Form::text('title', null, ['class'=>'form-control', 'id' => 'title']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('slug', 'Slug:') !!}
+            {!! Form::text('slug', null, ['class'=>'form-control', 'id' => 'slug']) !!}
         </div>
 
         <div class="form-inline">
@@ -39,4 +46,18 @@
     </div>
 
     @include('includes.form-errors')
+@stop
+
+@section('scripts')
+
+    <script>
+        $('#title').keyup(function (e){
+            $.get('{{ route('admin.posts.checkSlug') }}',
+                {'title':$('#title').val()},
+                function(data) {
+                    $('#slug').val(data.slug);
+                }
+            );
+        });
+    </script>
 @stop

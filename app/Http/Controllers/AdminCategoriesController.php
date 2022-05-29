@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 class AdminCategoriesController extends Controller
 {
@@ -38,7 +40,7 @@ class AdminCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, FlasherInterface $flasher)
     {
 //        return $request->all();
 
@@ -50,6 +52,13 @@ class AdminCategoriesController extends Controller
             'name' => $name,
             'slug' => $slug
         ]);
+
+        \session()->flash('cat_added');
+        if(Session::has('cat_added')) {
+            $flasher->addSuccess('Category Added');
+        } else {
+            $flasher->addError('Oops!! Something bad Happened');
+        }
 
         return back();
     }
@@ -87,7 +96,7 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, FlasherInterface $flasher)
     {
         //
         $category = Category::findOrFail($id);
@@ -99,6 +108,14 @@ class AdminCategoriesController extends Controller
             'slug' => $slug
         ]);
 
+        \session()->flash('cat_updated');
+        if(Session::has('cat_updated')) {
+            $flasher->addinfo('Category has been Updated');
+        } else {
+            $flasher->addError('Oops!! Something bad Happened');
+        }
+
+
         return redirect(route('categories.index'));
     }
 
@@ -108,9 +125,11 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, FlasherInterface $flasher)
     {
         Category::findOrFail($id)->delete();
+
+        $flasher->addWarning('Category has been Removed');
 
         return back();
     }

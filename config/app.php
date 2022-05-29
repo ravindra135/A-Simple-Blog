@@ -181,6 +181,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+        Flasher\Laravel\FlasherServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -210,6 +214,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Flasher' => Flasher\Laravel\Facade\Flasher::class,
     ])->toArray(),
 
 ];

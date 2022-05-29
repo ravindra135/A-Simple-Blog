@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Post;
+use Flasher\Prime\Flasher;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('web');
     }
 
     /**
@@ -21,8 +26,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function home(FlasherInterface $flasher) {
+
+        if(Auth::check()) {
+
+          $flasher->addSuccess('Hello!! Welcome To Laravel Tutorial');
+
+        } else {
+
+            $flasher->addWarning('Login & Enjoy tons of Features;');
+
+        }
+
+        return view('home');
+
+    }
+
     public function index()
     {
-        return view('home');
+        $posts = Post::paginate(5);
+        $categories = Category::all();
+        return view('blog-home', compact('posts', 'categories'));
     }
 }
