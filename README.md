@@ -28,6 +28,22 @@
     <li>Chart on Admin Dashboard Page</li>
   </ul>
   
+  <p>if You want to try this Project; then Must Do:</p>
+  <ul>
+    <li>After Migration;</li>
+		<p> First;
+			Create Roles using PhpMyAdmin
+			- name : Admin | slug: admin
+			- name : Author | slug: author
+		</p>
+		<p> Second; (only for 1st User)
+			After You create a User; go to Users Table and then add role_id - 1;
+			Then the user will be Admin; and log in to Admin Panel; http://127.0.0.1:8000/admin
+			There is no default role;
+		</p>
+		<p> Maximum of Routes require Admin Role, So assign it; and Play with alll functionality. </p>	
+	</ul>
+  
   <p>You can suggest changes to Repo, If I Learning something new, and can be added into this Project; I Will Do it</p>
   
   <p>Happy Learning!!!</p>
