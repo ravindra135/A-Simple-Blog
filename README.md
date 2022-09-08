@@ -1,6 +1,6 @@
 <h1>A Simple Blog</h1>
 
-<p>I started learning Laravel, I put all the Practical Knowledge into this Project - A Simple Blog; my Tutor was Edwin Diaz, may be some you know his from CodingFaculty, you can find him on Udemy.</p>
+<p>Comes with Authentication, User Management, Post Management. This demo project is mainly focused on Backend, so don't go up on design please.</p>
 
 <p>Laravel Framework Version is 9.1.6, Some of the styles may be Outdates; as Bootstrap V3 is being used. All major aspects as been covered.</p>
 <p>Some of Basic Features.</p>
